@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Product } from "../types";
-import { Link } from "expo-router";
+import { Link, useSegments } from "expo-router";
 
 export const defaultPizza = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png'
 
@@ -10,8 +10,13 @@ type ProductListItemProps = {
 };
 
 const ProductListItem = ({ product }: ProductListItemProps) => {
+
+    const segments = useSegments();
+    console.log(segments); // it gives the array of the content of path of the file separated by /
+
+
     return (
-        <Link href={`/menu/${product.id}` } asChild>
+        <Link href={`/${segments[0]}/menu/${product.id}` } asChild>
             <Pressable style={styles.container}>
                 <Image
                     source={{ uri: product.image || defaultPizza }}
@@ -21,7 +26,7 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
                     {product.name}
                 </Text>
                 <Text style={styles.price}>
-                    $ {product.price}
+                    ${product.price}
                 </Text>
             </Pressable>
         </Link>
@@ -53,7 +58,6 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         aspectRatio: 1, // height will authomatically calculated wrt width
-
     }
 
 });
