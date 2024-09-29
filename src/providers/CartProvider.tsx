@@ -7,12 +7,14 @@ type CartType = {
     items: CartItem[],// array of cart item.
     addItem: (product: Product, size: CartItem['size']) => void
     updateQuantity: (itemId: String, amount: -1 | 1) => void
+    total: number,
 }
 
 export const CartContext = createContext<CartType>({
     items: [],
     addItem: () => {},
     updateQuantity: () => {},
+    total: 0
 });
 
 const CartProvider = ({ children } : PropsWithChildren) => {
@@ -41,14 +43,18 @@ const CartProvider = ({ children } : PropsWithChildren) => {
 
     console.log(items);
 
+
+    
+
     const updateQuantity = (itemId: String, amount: -1 | 1) => {
         const updateItems = items.map((item) => item.id !== itemId ? item : {...item, quantity: item.quantity + amount}).filter((item) => item.quantity > 0)
         setItems(updateItems);
     }
 
+    const total = items.reduce((sum, item) => (sum += item.product.price * item.quantity),0);
 
     return (
-        <CartContext.Provider value={{ items, addItem, updateQuantity}}>
+        <CartContext.Provider value={{ items, addItem, updateQuantity, total}}>
             {children}
         </CartContext.Provider>
     );
