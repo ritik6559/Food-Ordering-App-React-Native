@@ -1,13 +1,12 @@
 import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import products from "@/assets/data/products";
 import { useState } from "react";
-import Button from "@/src/components/Button";
-import { useCart } from "@/src/providers/CartProvider";
-import { PizzaSize } from "@/src/types";
 import { useRoute } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { PizzaSize } from "@/types";
+import { useCart } from "@/providers/CartProvider";
+import products from "@assets/data/products";
 
 
 

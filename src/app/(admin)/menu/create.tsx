@@ -1,10 +1,10 @@
-import Button from "@/src/components/Button";
 import { useState } from "react";
 import { Text, View, StyleSheet, TextInput, Image, Alert } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { defaultPizza } from "@/src/components/ProductListItem";
 import * as ImagePicker from 'expo-image-picker'
 import { Stack, useLocalSearchParams } from "expo-router";
+import { defaultPizza } from "@/components/ProductListItem";
+import Button from "@/components/Button";
 
 const CreateProductScreen = () => {
 

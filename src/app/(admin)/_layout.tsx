@@ -4,8 +4,8 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 
 import Colors from '../../constants/Colors';
-import { useColorScheme } from '@/src/components/useColorScheme';
-import { useClientOnlyValue } from '@/src/components/useClientOnlyValue';
+import { useColorScheme } from '@/components/useColorScheme.web';
+import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -43,7 +43,7 @@ export default function TabLayout() {
                   <FontAwesome
                     name="info-circle"
                     size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
+                    color={Colors[colorScheme as 'light' | 'dark'].tint}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
@@ -53,7 +53,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="orders"
         options={{
           headerShown: false,
           title: 'Orders',

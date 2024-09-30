@@ -1,4 +1,4 @@
-import Button from "@/src/components/Button";
+import Button from "@/components/Button";
 import { Link, Stack } from "expo-router";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
