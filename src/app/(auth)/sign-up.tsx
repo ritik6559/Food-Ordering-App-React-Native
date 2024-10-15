@@ -45,13 +45,12 @@ const SignUp = () => {
             placeholder="Password" 
             secureTextEntry={true}
             />
-
             <Button 
             onPress={ loading ? () => {}  : signUpWithEmail}
             text={ loading ? "Please wait" : "Create account"} 
             />
             <Link href="/sign-in" style={styles.textButton}>
-                Sign in
+                <Text style={styles.text}>Sign In</Text>
             </Link>
         </View>
     )
