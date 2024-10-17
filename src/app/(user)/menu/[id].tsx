@@ -1,11 +1,12 @@
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable, ActivityIndicator } from "react-native";
 import { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { PizzaSize } from "@/types";
 import { useCart } from "@/providers/CartProvider";
 import products from "@assets/data/products";
 import Button from "@/components/Button";
+import { useProduct } from "@/api/products";
 
 
 
@@ -19,7 +20,8 @@ const ProductDetailsScreen = () => {
 
     const [selectedSize, setSelectedSize] = useState<PizzaSize>('M');
 
-    const { id } = useLocalSearchParams();
+    const { id: idString } = useLocalSearchParams();
+    const id = parseFloat(typeof(idString) === 'string' ? idString : idString[0]);
 
 
     const { addItem } = useCart();
@@ -37,12 +39,16 @@ const ProductDetailsScreen = () => {
     }
 
 
-    const product = products.find((p) => p.id.toString() === id);
+    const { data: product, error, isLoading} = useProduct(id);
 
-    if (!product) {
+    if (error) {
         return <Text>
             Product not found
         </Text>;
+    }
+
+    if(isLoading){
+        return <ActivityIndicator/>
     }
 
 

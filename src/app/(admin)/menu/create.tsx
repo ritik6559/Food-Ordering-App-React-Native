@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Text, View, StyleSheet, TextInput, Image, Alert } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import * as ImagePicker from 'expo-image-picker'
-import { Stack, useLocalSearchParams } from "expo-router";
+import { router, Stack, useLocalSearchParams } from "expo-router";
 import { defaultPizza } from "@/components/ProductListItem";
 import Button from "@/components/Button";
+import { useInsertProduct } from "@/api/products";
 
 const CreateProductScreen = () => {
 
@@ -12,8 +13,11 @@ const CreateProductScreen = () => {
     const [price, setPrice] = useState('');
     const [error, setError] = useState('');
     const [image, setImage] = useState<string | null>(null);
+
     const { id } = useLocalSearchParams();
     const isUpdating = !!id;
+
+    const { mutate: insertProduct } = useInsertProduct();
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,7 +36,7 @@ const CreateProductScreen = () => {
 
     const resetFields = () => {
         setName(''),
-        setPrice('')
+        setPrice(''),
     }
 
     
@@ -67,7 +71,14 @@ const CreateProductScreen = () => {
 
         console.warn("Creating product", name);
 
-        resetFields();
+        insertProduct({name, price: parseFloat(price), image},{
+            onSuccess: () => {
+                resetFields();
+                router.back();
+
+            }
+        });
+
     }
 
 
